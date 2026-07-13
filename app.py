@@ -1,4 +1,6 @@
 import os
+
+from langchain_core.runnables import RunnableConfig
 from langchain_openai import ChatOpenAI
 from langchain_core.tools import tool
 from langchain.agents import create_agent
@@ -29,7 +31,11 @@ agent = create_agent(
 
 # Run the agent
 inputs = {"messages": [{"role": "user", "content": "What is the weather in San Francisco?"}]}
-response = agent.invoke(inputs)
+config=RunnableConfig(run_name="hello-langchain-openai")
+response = agent.invoke(
+    inputs,
+    config=config
+)
 
 # Display the result
 print(response["messages"][-1].content)
